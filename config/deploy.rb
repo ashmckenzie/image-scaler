@@ -48,9 +48,14 @@ namespace :deploy do
   desc 'Deploy NGiNX site configuration'
   task :nginx_site do
     nginx_config = CONFIG['deploy']['nginx']
-    tmp_file = "/tmp/nginx-#{nginx_config['config_name']}"
-    put nginx_site(nginx_config), tmp_file
-    sudo "mv #{tmp_file} /etc/nginx/sites-available/#{nginx_config['config_name']}"
+
+    nginx_base_dir = "/etc/nginx"
+    nginx_available_dir = "#{nginx_base_dir}/sites-available"
+    nginx_enabled_dir = "#{nginx_base_dir}/sites-enabled"
+    nginx_available_file = "#{nginx_available_dir}/#{nginx_config['config_name']}"
+
+    put nginx_site_config(nginx_config), nginx_available_file
+    run "ln -nsf #{nginx_available_file} #{nginx_enabled_dir}/"
   end
 
   desc 'Reload NGiNX'
@@ -59,6 +64,7 @@ namespace :deploy do
   end
 end
 
-def nginx_site config
-  config = ERB.new(File.read('config/nginx-image-scaler.erb'))
+def nginx_site_config config
+  template = ERB.new(File.read('config/nginx-image-scaler.erb'))
+  template.result(binding)
 end
