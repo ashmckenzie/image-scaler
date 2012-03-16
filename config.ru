@@ -13,6 +13,5 @@ require File.join($ROOT, 'app')
 use Rack::ConditionalGet
 use Rack::ETag
 
-
 set :run, false
 run Sinatra::Application
