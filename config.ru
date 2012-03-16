@@ -10,6 +10,9 @@ $ROOT = File.expand_path(File.join(File.dirname(__FILE__)))
 
 require File.join($ROOT, 'app')
 
-set :run, false
+use Rack::ConditionalGet
+use Rack::ETag
 
+
+set :run, false
 run Sinatra::Application
