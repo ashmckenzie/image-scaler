@@ -4,4 +4,8 @@ gem 'sinatra'
 gem 'dragonfly'
 gem 'capistrano'
 gem 'capistrano_colors'
-gem 'rack-cache'
+
+group :development do
+  gem 'pry'
+  gem 'pry-nav'
+end
