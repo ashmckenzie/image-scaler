@@ -26,6 +26,7 @@ role :app, CONFIG['deploy']['ssh_host']
 
 after "deploy:update", "deploy:cleanup"
 after "deploy:setup", "deploy:more_setup"
+after "deploy:finalize_update", "deploy:more_symlinks"
 
 before "deploy:create_symlink",
   "deploy:configs",
@@ -37,6 +38,8 @@ namespace :deploy do
   desc 'More setup.. ensure necessary directories exist, etc'
   task :more_setup do
     run "mkdir -p #{shared_path}/config"
+    run "mkdir -p #{shared_path}/images"
+    run "chmod 2777 #{shared_path}/images"
   end
 
   desc 'Deploy necessary configs into shared/config'
@@ -61,6 +64,11 @@ namespace :deploy do
   desc 'Reload NGiNX'
   task :nginx_reload do
     sudo 'service nginx reload'
+  end
+
+  desc 'More symlinks'
+  task :more_symlinks do
+    run "ln -s #{shared_path}/images #{latest_release}/public/images"
   end
 end
 
