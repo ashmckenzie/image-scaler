@@ -12,7 +12,7 @@ set :application, "Image scaler"
 set :repository, CONFIG['deploy']['repo']
 
 set :scm, :git
-set :deploy_to, CONFIG['base_location']
+set :deploy_to, CONFIG['deploy']['base_location']
 set :deploy_via, :copy
 set :keep_releases, 3
 set :use_sudo, false
