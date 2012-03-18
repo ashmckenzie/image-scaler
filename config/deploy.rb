@@ -12,7 +12,7 @@ set :application, "Image scaler"
 set :repository, CONFIG['deploy']['repo']
 
 set :scm, :git
-set :deploy_to, CONFIG['deploy']['base_location']
+set :deploy_to, "#{ENV['HOME']}/#{CONFIG['app']['name']}/current"
 set :deploy_via, :copy
 set :keep_releases, 3
 set :use_sudo, false
@@ -55,7 +55,7 @@ namespace :deploy do
     nginx_base_dir = "/etc/nginx"
     nginx_available_dir = "#{nginx_base_dir}/sites-available"
     nginx_enabled_dir = "#{nginx_base_dir}/sites-enabled"
-    nginx_available_file = "#{nginx_available_dir}/#{nginx_config['config_name']}"
+    nginx_available_file = "#{nginx_available_dir}/#{nginx_config['app_name']}"
 
     put nginx_site_config(nginx_config), nginx_available_file
     run "ln -nsf #{nginx_available_file} #{nginx_enabled_dir}/"

@@ -4,8 +4,8 @@ server {
   root <%= config['root'] %>;
   passenger_enabled on;
 
-  access_log  /var/log/nginx/<%= config['log_name'] %>.access.log  combined;
-  error_log  /var/log/nginx/<%= config['log_name'] %>.error.log;
+  access_log  /var/log/nginx/<%= config['app_name'] %>.access.log  combined;
+  error_log  /var/log/nginx/<%= config['app_name'] %>.error.log;
 
   # redirect server error pages to the static page /50x.html
   #
