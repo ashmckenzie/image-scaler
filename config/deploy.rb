@@ -69,6 +69,6 @@ namespace :deploy do
 end
 
 def nginx_site_config config
-  template = ERB.new(File.read("config/nginx-#{config.app_name}.erb"))
+  template = ERB.new(File.read("config/nginx.erb"))
   template.result(binding)
 end
