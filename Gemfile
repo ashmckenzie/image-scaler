@@ -4,7 +4,7 @@ gem 'sinatra'
 gem 'dragonfly'
 gem 'uuid'
 gem 'hashie'
-gem 'activesupport', '~> 3.2.3'
+gem 'activesupport', '~> 3.2.8'
 gem 'stethoscope', :git => 'https://ashmckenzie@github.com/ashmckenzie/stethoscope.git'
 
 group :development do
