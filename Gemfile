@@ -1,10 +1,11 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'dragonfly'
 gem 'uuid'
 gem 'hashie'
 gem 'activesupport', '~> 3.2.8'
+gem 'dimensions'
 gem 'stethoscope', :git => 'https://ashmckenzie@github.com/ashmckenzie/stethoscope.git'
 
 group :development do
