@@ -28,7 +28,8 @@ module ImageScaler
     end
 
     def cache_file env
-      @cache_file ||= Pathname.new($ROOT + "/public/" + env['REQUEST_URI'][1..-1])
+      path = env['REQUEST_URI'][1..-1].gsub(/\?.*$/, '')
+      @cache_file ||= Pathname.new($ROOT + "/public/" + path)
     end
 
     def resize! app, env
