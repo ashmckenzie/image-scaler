@@ -8,3 +8,4 @@ end
 
 run "bundle install --deployment --without 'development test'"
 run "bundle exec rake image-scaler:generate_nginx_config | sudo tee /etc/nginx/sites-available/image-scaler.conf"
+run "sudo ln -nfs /etc/nginx/sites-available/image-scaler.conf /etc/nginx/sites-enabled/"

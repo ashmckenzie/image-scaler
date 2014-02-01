@@ -1,4 +1,7 @@
 #!/bin/sh
 
+echo "Reload nginx.."
+sudo service nginx reload
+
 echo "Restarting app.."
 touch tmp/restart.txt
