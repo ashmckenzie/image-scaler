@@ -1,5 +1,4 @@
 require 'erb'
-require 'pry'
 
 require File.expand_path(File.join('..', 'config', 'initialise'), __FILE__)
 
