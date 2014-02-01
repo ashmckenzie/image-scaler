@@ -1,7 +1,7 @@
 <form action="/" method="POST">
-  <%- unless @api_key.blank? %>
+  <% unless @api_key.empty? %>
     <input type="hidden" name="api_key" value="<%= @api_key %>" />
-  <%- end %>
+  <% end %>
   <p>
     URL <input type="text" name="url" />
     Width <input type="text" name="width" />
