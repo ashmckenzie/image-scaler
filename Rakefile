@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'erb'
 
 require File.expand_path(File.join('..', 'config', 'initialise'), __FILE__)
