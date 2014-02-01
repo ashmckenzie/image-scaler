@@ -1,20 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'sinatra'
+gem 'sinatra', require: false
+gem 'sinatra-contrib'
 gem 'dragonfly'
 gem 'uuid'
 gem 'hashie'
-gem 'activesupport', '~> 3.2.8'
-gem 'dimensions'
-gem 'stethoscope', :git => 'https://ashmckenzie@github.com/ashmckenzie/stethoscope.git'
+gem 'stethoscope'
 
 group :development do
   gem 'thin'
-  gem 'rake'
-  gem 'shotgun'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'pry'
-  gem 'pry-nav'
   gem 'awesome_print'
-  gem 'capistrano'
-  gem 'capistrano_colors'
+  gem 'git-deploy'
 end

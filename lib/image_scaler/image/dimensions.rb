@@ -4,7 +4,7 @@ module ImageScaler
     attr_reader :width, :height
 
     def initialize width_and_height
-      @width, @height = width_and_height.split(/x/).map(&:to_i)
+      @width, @height = width_and_height.split(/x/).map { |x| x.to_i }
     end
 
     def to_s

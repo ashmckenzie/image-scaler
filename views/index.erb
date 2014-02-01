@@ -1,17 +1,11 @@
 <form action="/" method="POST">
-  <input type="hidden" name="api_key" value="<%= @api_key %>" />
-
+  <%- unless @api_key.blank? %>
+    <input type="hidden" name="api_key" value="<%= @api_key %>" />
+  <%- end %>
   <p>
-    <label>URL</label>
-    <input type="text" name="url" />
-  </p>
-
-  <p>
-    <label>Dimensions</label>
-    W <input type="text" name="width" /> x H <input type="text" name="height" />
-  </p>
-
-  <p>
+    URL <input type="text" name="url" />
+    Width <input type="text" name="width" />
+    Height <input type="text" name="height" />
     <input type="submit">
   </p>
 </form>

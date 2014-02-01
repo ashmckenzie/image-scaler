@@ -1,5 +1,6 @@
 require 'stethoscope'
 
 Stethoscope.check :release do |resp|
-  resp[:revision] = `git rev-parse HEAD`.chomp
+  head_file = File.join(ROOT_PATH, '.git', 'refs', 'heads', 'master')
+  resp[:revision] = File.read(head_file).chomp
 end
