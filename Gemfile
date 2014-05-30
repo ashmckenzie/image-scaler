@@ -6,9 +6,9 @@ gem 'dragonfly'
 gem 'uuid'
 gem 'hashie'
 gem 'stethoscope'
+gem 'rake'
 
 group :development do
-  gem 'rake'
   gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
