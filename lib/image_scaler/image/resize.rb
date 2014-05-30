@@ -38,7 +38,7 @@ module ImageScaler
         end
 
         def sanitise_url url
-          url.gsub!(/^http:\/{1,}/, 'http://')  # FIXME: why ?
+          url.gsub!(/^(http(?:s?)):\/{1,}/, '\1://')
         end
 
         def resize? remote_image, desired_dimensions
