@@ -18,12 +18,13 @@ module ImageScaler
         @rack_env = rack_env
       end
 
-      def resize! url, desired_dimensions
+      def resize! url, desired_dimensions, maintain_ratio=true
         desired_dimensions = Dimensions.new(desired_dimensions)
         remote_image = dragonfly.fetch_url(sanitise_url(url))
 
         if resize?(remote_image, desired_dimensions)
-          remote_image.thumb(desired_dimensions.to_s)
+          dimensions = "%s%s" % [ desired_dimensions.to_s, maintain_ratio ? '^' : '' ]
+          remote_image.thumb(dimensions)
         else
           remote_image
         end

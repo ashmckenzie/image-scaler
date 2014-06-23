@@ -36,12 +36,7 @@ module ImageScaler
     end
 
     post '/' do
-      url = sprintf(
-        "/images/%sx%s/%s?api_key=%s",
-        params['height'], params['width'], CGI.escape(params['url']), params['api_key']
-      )
-
-      redirect url
+      redirect "/images/%sx%s/%s?api_key=%s" % [ params['height'], params['width'], CGI.escape(params['url']), params['api_key'] ]
     end
 
     get '/images/:size/*' do |desired_dimensions, url|
