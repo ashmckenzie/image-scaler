@@ -1,4 +1,4 @@
 config/config.yml
 cache
 tmp
-public/images
+.envrc
