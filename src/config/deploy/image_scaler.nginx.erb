@@ -1,12 +1,14 @@
+upstream backend {
+  server localhost:7788;
+}
+
 server {
   listen 80;
-  server_name <%= server_name %>;
-  root <%= root %>;
+  server_name image-scaler.the-rebellion.net;
+  root /data/image-scaler/;
 
-  passenger_enabled on;
-
-  access_log  /var/log/nginx/<%= app_name %>.access.log combined;
-  error_log  /var/log/nginx/<%= app_name %>.error.log;
+  access_log  /var/log/nginx/image-scaler.access.log combined;
+  error_log  /var/log/nginx/image-scaler.error.log;
 
   # redirect server error pages to the static page /50x.html
   #
@@ -19,5 +21,9 @@ server {
   #
   location ~ /\.git {
     deny all;
+  }
+
+  location / {
+    proxy_pass http://backend;
   }
 }

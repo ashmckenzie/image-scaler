@@ -15,7 +15,7 @@ module ImageScaler
       use ::Rack::CommonLogger
 
       before do
-        halt 401, 'Access denied' unless Config.app.api_keys.include?(params[:api_key])
+        halt 401, 'Access denied' unless api_key_valid?(params[:api_key])
         @api_key = params[:api_key]
       end
     end
@@ -43,18 +43,26 @@ module ImageScaler
 
     private
 
-    def cache_file_for(env)
-      # from this: /images/100x100/http%3A%2F%2Festrip.org%2Fcontent%2Fusers%2Ftinypliny%2F0409%2FGrannySmith0404.jpg?api_key=
-      # to this:   100x100/http%3A%2F%2Festrip.org%2Fcontent%2Fusers%2Ftinypliny%2F0409%2FGrannySmith0404.jpg
-      env['REQUEST_URI'].gsub(/\?.*$/, '').gsub(%r{^/images/}, '')
-    end
+      def valid_api_keys
+        @valid_api_keys ||= ENV.fetch('IMAGE_SCALER_API_KEYS', '').split(',')
+      end
 
-    def cache_file_exists?(file)
-      File.exist?(File.join(full_cache_path, file))
-    end
+      def api_key_valid?(api_key)
+        valid_api_keys.include?(api_key)
+      end
 
-    def full_cache_path
-      @full_cache_path ||= File.expand_path(File.join('..', '..', '..', Config.app.cache_path), __FILE__)
-    end
+      def cache_file_for(env)
+        # from this: /images/100x100/http%3A%2F%2Festrip.org%2Fcontent%2Fusers%2Ftinypliny%2F0409%2FGrannySmith0404.jpg?api_key=
+        # to this:   100x100/http%3A%2F%2Festrip.org%2Fcontent%2Fusers%2Ftinypliny%2F0409%2FGrannySmith0404.jpg
+        env['REQUEST_URI'].gsub(/\?.*$/, '').gsub(%r{^/images/}, '')
+      end
+
+      def cache_file_exists?(file)
+        File.exist?(File.join(cache_path, file))
+      end
+
+      def cache_path
+        ENV['APP_CACHE_PATH']
+      end
   end
 end

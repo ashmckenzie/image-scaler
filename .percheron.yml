@@ -1,10 +1,12 @@
 ---
-docker:
-  host: unix:///var/run/docker.sock
+secrets_file: ./.secrets.yml
 
 userdata:
   app:
+    env: production
     port: 7788
+    home: /app
+    cache_path: /app/public/images
 
 project:
   name: image-scaler
@@ -26,4 +28,6 @@ stacks:
         - /data/image-scaler:/app/public
       env:
         - PORT={{ userdata.app.port }}
-        - ENV=production
+        - ENV={{ userdata.app.env }}
+        - APP_CACHE_PATH={{ userdata.app.cache_path }}
+        - IMAGE_SCALER_API_KEYS={{ secrets.image_scaler.api_keys | join:',' }}

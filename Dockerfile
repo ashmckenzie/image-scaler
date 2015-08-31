@@ -1,7 +1,7 @@
 FROM gliderlabs/alpine:latest
 MAINTAINER ash@the-rebellion.net
 
-ENV APP_HOME /app
+ENV APP_HOME {{ userdata.app.home }}
 ENV BUNDLE_GEMFILE ./Gemfile.production
 
 ADD ./config/repositories /etc/apk/repositories
