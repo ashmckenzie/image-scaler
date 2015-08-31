@@ -2,6 +2,10 @@
 docker:
   host: unix:///var/run/docker.sock
 
+userdata:
+  app:
+    port: 7788
+
 project:
   name: image-scaler
   description: Scales images dynamically
@@ -13,13 +17,13 @@ stacks:
     - name: app
       version: 1.0.0
       dockerfile: Dockerfile
-      
+
       pre_build_scripts:
         - ./scripts/bundle.sh
       ports:
-        - "7788:80"
+        - "{{ userdata.app.port }}:{{ userdata.app.port }}"
       volumes:
         - /data/image-scaler:/app/public
       env:
-        - PORT=80
+        - PORT={{ userdata.app.port }}
         - ENV=production

@@ -1,5 +1,4 @@
 #!/bin/bash
 
 cd ${APP_HOME}
-env
 foreman start

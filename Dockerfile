@@ -25,6 +25,6 @@ WORKDIR ${APP_HOME}
 ADD ./config/start /start
 RUN chmod 755 /start
 
-EXPOSE 80
+EXPOSE {{ userdata.app.port }}
 
 CMD [ "/start" ]
