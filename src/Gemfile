@@ -1,0 +1,16 @@
+source 'https://rubygems.org'
+
+gem 'sinatra', require: false
+gem 'sinatra-contrib'
+gem 'dragonfly'
+gem 'uuid'
+gem 'hashie'
+gem 'stethoscope'
+gem 'rake'
+gem 'json'
+
+group :development do
+  gem 'pry-byebug'
+  gem 'awesome_print'
+  gem 'git-deploy'
+end

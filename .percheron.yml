@@ -1,0 +1,19 @@
+---
+project:
+  name: image-scaler
+  description: Scales images dynamically
+
+stacks:
+- name: image-scaler
+  description: Image Scaler App
+  units:
+    - name: app
+      version: 1.0.0
+      dockerfile: Dockerfile
+      pre_build_scripts:
+        - ./scripts/bundle.sh
+      ports:
+        - "7788:80"
+      env:
+        - PORT=80
+        - ENV=production

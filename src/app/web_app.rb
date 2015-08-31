@@ -1,26 +1,21 @@
-# encoding: UTF-8
-
 require 'sinatra/base'
 require 'sinatra/reloader'
 require 'cgi'
-
-require 'better_errors' if ENV['RACK_ENV'] == 'development'
 
 module ImageScaler
   class WebApp < Sinatra::Base
 
     configure :development do
-      require 'pry'
-
-      use BetterErrors::Middleware
+      require 'pry-byebug'
       register Sinatra::Reloader
-
       LIBRARIES.each { |f| also_reload(f) }
     end
 
     configure :production do
+      use ::Rack::CommonLogger
+
       before do
-        halt 401, 'Access denied' unless Config.app.api_keys.include? params[:api_key]
+        halt 401, 'Access denied' unless Config.app.api_keys.include?(params[:api_key])
         @api_key = params[:api_key]
       end
     end
@@ -36,7 +31,7 @@ module ImageScaler
     end
 
     post '/' do
-      redirect "/images/%sx%s/%s?api_key=%s" % [ params['height'], params['width'], CGI.escape(params['url']), params['api_key'] ]
+      redirect '/images/%sx%s/%s?api_key=%s' % [ params['height'], params['width'], CGI.escape(params['url']), params['api_key'] ]
     end
 
     get '/images/:size/*' do |desired_dimensions, url|
@@ -48,13 +43,13 @@ module ImageScaler
 
     private
 
-    def cache_file_for env
+    def cache_file_for(env)
       # from this: /images/100x100/http%3A%2F%2Festrip.org%2Fcontent%2Fusers%2Ftinypliny%2F0409%2FGrannySmith0404.jpg?api_key=
       # to this:   100x100/http%3A%2F%2Festrip.org%2Fcontent%2Fusers%2Ftinypliny%2F0409%2FGrannySmith0404.jpg
-      env['REQUEST_URI'].gsub(/\?.*$/, '').gsub(/^\/images\//, '')
+      env['REQUEST_URI'].gsub(/\?.*$/, '').gsub(%r{^/images/}, '')
     end
 
-    def cache_file_exists? file
+    def cache_file_exists?(file)
       File.exist?(File.join(full_cache_path, file))
     end
 

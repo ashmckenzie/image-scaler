@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+
+gem 'sinatra', require: false
+gem 'sinatra-contrib'
+gem 'dragonfly'
+gem 'uuid'
+gem 'hashie'
+gem 'stethoscope'
+gem 'rake'
+gem 'json'
+
+gem 'puma'

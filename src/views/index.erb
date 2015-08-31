@@ -1,5 +1,5 @@
 <form action="/" method="POST">
-  <% unless @api_key.empty? %>
+  <% if @api_key %>
     <input type="hidden" name="api_key" value="<%= @api_key %>" />
   <% end %>
   <p>

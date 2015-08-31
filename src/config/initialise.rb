@@ -7,11 +7,7 @@ $LOAD_PATH.unshift(BASE_LIB_PATH)
 initialisers_path = File.join(CONFIG_PATH, 'initialisers', '**', '*.rb')
 lib_path = File.join(BASE_LIB_PATH, 'image_scaler', '**', '*.rb')
 
-Dir[initialisers_path].each do |file|
-  require file
-end
+Dir[initialisers_path].each { |file| require file }
 
 LIBRARIES = Dir[lib_path]
-LIBRARIES.each do |file|
-  require file
-end
+LIBRARIES.each { |file| require file }
