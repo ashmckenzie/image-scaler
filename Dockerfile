@@ -18,8 +18,7 @@ ADD src/Gemfile.production Gemfile.production
 ADD src/Gemfile.production.lock Gemfile.production.lock
 RUN bundle install -j4
 
-COPY ./src .
-ADD src /app
+COPY src ${APP_HOME}
 WORKDIR ${APP_HOME}
 
 ADD ./config/start /start
